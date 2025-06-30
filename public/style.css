@@ -333,6 +333,7 @@ section{
 
 /* main model style end  */
 
+
 /* -------------------------------------------- blogs section starts ---------------------  */
 
 .blogs .blogs-slider{
@@ -516,7 +517,69 @@ section{
 
 
 
+.me{
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #E5F3FD;
+  }
+  .me h2 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #002147;
+  }
+  .me h3{
+    font-size: 3rem;
+    color: #013A63;
+    text-transform: uppercase;
+    transition-delay: .2s;
+}
 
+.me p{
+    font-size: 1.7rem;
+    color: #1B2E3C;
+    transition-delay: .4s;
+    padding: 1rem 0;
+}
+  .me .subtitle {
+    font-size: 18px;
+    color: #555;
+    margin-top: 10px;
+  }
+  .me .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+  }
+  .me .feature-box {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .me .feature-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+  .me .icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+  }
+  .me .feature-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #013A63;
+    margin-bottom: 10px;
+  }
+  .me .feature-desc {
+    font-size: 15px;
+    color: #333333;
+  }
+  
 
 
 

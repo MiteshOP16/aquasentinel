@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beach Weather Checker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #6dd5ed, #2193b0);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background-color: rgba(0,0,0,0.3);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .output {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+    }
+
+    .output div {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌊 Check Beach Weather</h1>
+    <label for="latitude">Latitude</label>
+    <input type="number" id="latitude" placeholder="Enter Latitude" step="any" required />
+    
+    <label for="longitude">Longitude</label>
+    <input type="number" id="longitude" placeholder="Enter Longitude" step="any" required />
+    
+    <button onclick="fetchWeather()">Check Weather</button>
+    
+    <div class="output" id="output">
+      <!-- Weather info will be shown here -->
+    </div>
+  </div>
+
+  <script>
+    async function fetchWeather() {
+      const latitude = document.getElementById('latitude').value;
+      const longitude = document.getElementById('longitude').value;
+
+      if (!latitude || !longitude) {
+        alert('Please enter both latitude and longitude.');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/weather', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ latitude, longitude }),
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+          document.getElementById('output').innerHTML = `<div>Error: ${data.error}</div>`;
+        } else {
+          document.getElementById('output').innerHTML = `
+            <div><strong>🌬️ Wind Direction:</strong> ${data.wind_direction}°</div>
+            <div><strong>💨 Wind Speed:</strong> ${data.wind_speed} m/s</div>
+            <div><strong>🌡️ Temperature:</strong> ${data.temperature} °C</div>
+            <div><strong>💧 Humidity:</strong> ${data.humidity}%</div>
+            <div><strong>🌁 Visibility:</strong> ${data.visibility} meters</div>
+            <div><strong>🌧️ Rainfall:</strong> ${data.rainfall || '0'} mm</div>
+          `;
+        }
+      } catch (error) {
+        document.getElementById('output').innerHTML = `<div>Error fetching weather data.</div>`;
+        console.error('Fetch error:', error);
+      }
+    }
+  </script>
+</body>
+</html>
